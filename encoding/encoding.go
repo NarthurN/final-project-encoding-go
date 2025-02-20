@@ -35,13 +35,11 @@ func (j *JSONData) Encoding() error {
 		return fmt.Errorf("ошибка при  чтении файла при преобразовании JSON в YAML %w", err)
 	}
 
-	var dc models.DockerCompose
-
-	if err = json.Unmarshal(jsonData, &dc); err != nil {
+	if err = json.Unmarshal(jsonData, &j.DockerCompose); err != nil {
 		return fmt.Errorf("ошибка при анмаршелинге json в JSON в YAML %w", err)
 	}
 
-	yamlData, err := yaml.Marshal(dc)
+	yamlData, err := yaml.Marshal(&j.DockerCompose)
 	if err != nil {
 		return fmt.Errorf("ошибка при преобразовании JSON в YAML %w", err)
 	}
@@ -68,13 +66,11 @@ func (y *YAMLData) Encoding() error {
 		return fmt.Errorf("ошибка при  чтении файла при преобразовании YAML в JSON %w", err)
 	}
 
-	var dc models.DockerCompose
-
-	if err = yaml.Unmarshal(yamlData, &dc); err != nil {
+	if err = yaml.Unmarshal(yamlData, &y.DockerCompose); err != nil {
 		return fmt.Errorf("ошибка при анмаршелинге yaml в YAML в JSON %w", err)
 	}
 
-	jsonData, err := json.Marshal(dc)
+	jsonData, err := json.Marshal(&y.DockerCompose)
 	if err != nil {
 		return fmt.Errorf("ошибка при преобразовании YAML в JSON %w", err)
 	}
